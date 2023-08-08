@@ -26,7 +26,7 @@
       rel="stylesheet"
     />
     <link href="./assets/css/vlabs-style.css" rel="stylesheet" />
-    <script src="./assets/js/jquery-3.4.1.slim.min.js"></script>
+    <script defer src="./assets/js/jquery-3.4.1.slim.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
       integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
@@ -37,6 +37,32 @@
       integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
       crossorigin="anonymous"
     ></script>
+    <!-- BEGIN INCLUDE MARKDOWN FILES USING ZERO MD JS -->
+    <!-- <script src="mainFolder/assets/js/webcomponents-loader.min.js"></script> -->
+    <!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
+    <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
+    <!-- Load the legacy (transpiled) build of <zero-md> -->
+
+    <script>
+      // Set global configs. Declare before importing `zero-md` element.
+      // These settings will apply to all instances of `zero-md`.
+      window.ZeroMd = {
+        config: {
+          cssUrls: [
+            "./assets/css/github-markdown.min.css",
+            "./assets/css/vlabs-style.css",
+          ],
+        },
+      };
+    </script>
+    <!-- <script type="module" src="mainFolder/assets/js/zero-md.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/zero-md@next/dist/zero-md.min.js"></script> -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.legacy.min.js"
+    ></script>
+    <!-- END INCLUDE MARKDOWN FILES USING ZERO MD JS -->
+    <script defer src="./assets/js/toggleSidebar.js"></script>
   </head>
   <body
     class="p-0 container-fluid vlabs-page d-flex flex-column justify-content-between"
@@ -226,10 +252,37 @@
         <div class="vlabs-page-content px-5 pb-4 flex-grow-1 markdown-body">
           <span class="lab-name"></span
           ><!--labname-->
-          <h2 class="text-center">Experiment 1</h2>
-          <div>
-            <!--content-->
-            Simulation
+          <!-- <h2 class="text-center">Experiment 1</h2> -->
+          <div class="vlabs-page-content col col-sm-7 col-lg-10 pr-5 pb-4">
+            <zero-md src="./experiment/experiment-name.md">
+            <template>
+              <style>
+                div {
+                    font-family: 'Raleway', sans-serif;
+                }
+
+                h1, h2 { 
+                    margin: 0.5em 0;
+                    color: #2C99CE;
+                    text-align: center;
+                }
+              </style>
+            </template>
+          </zero-md>
+          <script type="text/javascript">
+            // Popup window code
+            function newPopup(url) {
+                popupWindow = window.open(url,'popUpWindow','height=500,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
+            }
+          </script>
+          <section class="content-header" style="float:right; margin-top:1%">
+            <a href="JavaScript:newPopup('procedure.html');" style="color:green;font-size: 16px"><img src="assets/images/popout.png" style="height:20px; width:20px; "> Pop Up Procedure</a>
+          </section>
+          <h3 class="page-name">Simulation</h3>
+          <br>
+
+          <!-- <p style="font-size: 16px;"><a target="_blank" href="round-template/experiment/simulation/simulator.html"> Click here for simulation</a></p> -->
+          <iframe id="fraDisabled" src="./experiment/simulation/index.html" frameborder="0" scrolling="no" onMyLoad="disableContextMenu();" style="height: 2000px; width: 1200px;"> </iframe>
           </div>
         </div>
       </div>
@@ -336,6 +389,6 @@
         setActiveItem("menu");
       });
     </script>
-    <script src="./assets/js/toggleSidebar.js" />
+   
   </body>
 </html>
